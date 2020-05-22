@@ -9,8 +9,9 @@
   "scripts": {
     "test": "mocha --require test/setup.js",
     "dev": "nodemon src/server.js",
-    "start": "nodemon src/server.js",
-    "predeploy": "npm audit",
+    "start": "node src/server.js",
+    "migrate:production": "env DATABASE_URL=$(heroku config:get DATABASE_URL) npm run migrate",
+    "predeploy": "npm audit && npm run migrate:production",
     "deploy": "git push heroku master"
   },
   "author": "",
@@ -28,6 +29,7 @@
     "knex": "^0.21.1",
     "morgan": "^1.9.1",
     "nodemon": "^2.0.3",
+    "now": "^19.0.1",
     "pg": "^8.1.0",
     "xss": "^1.0.6"
   }
